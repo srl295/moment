@@ -156,12 +156,12 @@ export function localeMonthsParse (monthName, format, strict) {
         // make the regex if we don't have it already
         mom = createUTC([2000, i]);
         if (strict && !this._longMonthsParse[i]) {
-            this._longMonthsParse[i] = new RegExp('^' + this.months(mom, '').replace('.', '') + '$', 'i');
-            this._shortMonthsParse[i] = new RegExp('^' + this.monthsShort(mom, '').replace('.', '') + '$', 'i');
+            this._longMonthsParse[i] = new RegExp('^' + this.months(mom, '').replace('.', '') + '$', 'iu');
+            this._shortMonthsParse[i] = new RegExp('^' + this.monthsShort(mom, '').replace('.', '') + '$', 'iu');
         }
         if (!strict && !this._monthsParse[i]) {
             regex = '^' + this.months(mom, '') + '|^' + this.monthsShort(mom, '');
-            this._monthsParse[i] = new RegExp(regex.replace('.', ''), 'i');
+            this._monthsParse[i] = new RegExp(regex.replace('.', ''), 'iu');
         }
         // test the regex
         if (strict && format === 'MMMM' && this._longMonthsParse[i].test(monthName)) {
@@ -283,8 +283,8 @@ function computeMonthsParse () {
         mixedPieces[i] = regexEscape(mixedPieces[i]);
     }
 
-    this._monthsRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
+    this._monthsRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'iu');
     this._monthsShortRegex = this._monthsRegex;
-    this._monthsStrictRegex = new RegExp('^(' + longPieces.join('|') + ')', 'i');
-    this._monthsShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')', 'i');
+    this._monthsStrictRegex = new RegExp('^(' + longPieces.join('|') + ')', 'iu');
+    this._monthsShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')', 'iu');
 }
